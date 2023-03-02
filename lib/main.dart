@@ -1,15 +1,27 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:sport_app/DataLayer/Data/repository/PlayerRepo/player_repo.dart';
 import 'package:sport_app/PresentaionLayer/Player/players_screen.dart';
+import 'package:sport_app/bloc_observer.dart';
 
 void main() {
-  runApp(const MyApp());
+  PlayerRepo playerRepo = PlayerRepo();
+  Bloc.observer = MyBlocObserver();
+  runApp(MyApp(
+    playerRepo: playerRepo,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final PlayerRepo playerRepo;
+  const MyApp({super.key, required this.playerRepo});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(title: 'Flutter Demo', home: PlayerScreen());
+    return MaterialApp(
+        title: 'Flutter Demo',
+        home: PlayerScreen(
+          playerRepo: playerRepo,
+        ));
   }
 }

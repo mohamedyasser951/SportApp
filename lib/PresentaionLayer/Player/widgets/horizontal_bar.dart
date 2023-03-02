@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sport_app/DataLayer/PlayerModel/nations_model.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sport_app/BusinessLogic/PlayerCubit/player_bloc.dart';
+import 'package:sport_app/BusinessLogic/PlayerCubit/player_events.dart';
+import 'package:sport_app/DataLayer/PlayerModels/nations_model.dart';
 
 class HorizontalBar extends StatelessWidget {
   const HorizontalBar({super.key});
@@ -8,7 +10,7 @@ class HorizontalBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 80.0,
+      height: 60.0,
       child: ListView.builder(
         itemBuilder: buildItem,
         itemCount: nations.length,
@@ -20,18 +22,19 @@ class HorizontalBar extends StatelessWidget {
   Widget buildItem(context, index) {
     return InkWell(
       onTap: () {
-        
+        BlocProvider.of<PlayersBloc>(context).add(FetchPlayerByIdEvent(nationModel: nations[index]));
+            
       },
       child: Container(
-        width: 70.0,
-        height: 70.0,
+        width: 60.0,
+        height: 60.0,
         decoration: BoxDecoration(
-          shape: BoxShape.circle,
+          shape: BoxShape.rectangle,
           image: DecorationImage(
             image: AssetImage(nations[index].imagePath),
           ),
         ),
-        margin:const EdgeInsets.symmetric(horizontal: 16.0),
+        margin: const EdgeInsets.symmetric(horizontal: 16.0),
       ),
     );
   }

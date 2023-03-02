@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:sport_app/DataLayer/PlayerModels/player_model.dart';
 
-class PlayersList extends StatelessWidget {
-  const PlayersList({super.key});
+class BuildPlayerList extends StatelessWidget {
+  final PlayerModel playerModel;
+  const BuildPlayerList({super.key,required this.playerModel});
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
       separatorBuilder: (context, index) => const Divider(),
-      itemCount: 6,
+      itemCount: playerModel.data!.length,
       itemBuilder: (context, index) {
         return PlayerItem(
+          playerModel: playerModel,
           index: index,
         );
       },
@@ -18,24 +23,26 @@ class PlayersList extends StatelessWidget {
 }
 
 class PlayerItem extends StatelessWidget {
+    final PlayerModel playerModel;
+
   final int index;
-  const PlayerItem({super.key, required this.index});
+  const PlayerItem({super.key, required this.index,required this.playerModel});
 
   @override
   Widget build(BuildContext context) {
-    return const ListTile(
+    return  ListTile(
       leading: CircleAvatar(
         radius: 20,
         child: Image(
           image: NetworkImage(
-            "https://cdn.sportmonks.com//images//soccer//placeholder.png",
+            playerModel.data![index].imagePath!,
           ),
           width: 70,
           height: 70,
         ),
       ),
-      title: Text("Messi"),
-      subtitle: Text("FCB"),
+      title: Text(playerModel.data![index].name!),
+      subtitle: Text(playerModel.data![index].countryId!.toString()),
     );
   }
 }
