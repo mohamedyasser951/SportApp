@@ -6,4 +6,7 @@ class PlayerRepo {
 
   Future<PlayerModel> fetchPlayerById({required String countryId}) =>
       playerApiProvider.fetchPlayerById(countryId: countryId);
+
+  Future<PlayerModel> fetchPlayerByName({required String name}) =>
+      playerApiProvider.fetchPlayerByName(name: name);
 }

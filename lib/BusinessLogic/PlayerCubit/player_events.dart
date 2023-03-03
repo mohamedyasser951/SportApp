@@ -8,3 +8,8 @@ class FetchPlayerByIdEvent extends PlayersEvents {
   final NationModel nationModel;
   FetchPlayerByIdEvent({required this.nationModel});
 }
+
+class FetchPlayerByNameEvent extends PlayersEvents {
+  final String name;
+  FetchPlayerByNameEvent({required this.name});
+}

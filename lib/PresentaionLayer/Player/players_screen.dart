@@ -5,6 +5,7 @@ import 'package:sport_app/BusinessLogic/PlayerCubit/player_states.dart';
 import 'package:sport_app/DataLayer/Data/repository/PlayerRepo/player_repo.dart';
 import 'package:sport_app/PresentaionLayer/Player/widgets/horizontal_bar.dart';
 import 'package:sport_app/PresentaionLayer/Player/widgets/players_list.dart';
+import 'package:sport_app/PresentaionLayer/Player/widgets/search_item.dart';
 
 class PlayerScreen extends StatelessWidget {
   final PlayerRepo playerRepo;
@@ -15,21 +16,13 @@ class PlayerScreen extends StatelessWidget {
     return BlocProvider<PlayersBloc>(
         create: (context) => PlayersBloc(playerRepo: playerRepo),
         child: Scaffold(
-          backgroundColor: Colors.white,
           appBar: AppBar(
-            leading: IconButton(
-              icon: const Icon(
-                Icons.abc_outlined,
-                color: Colors.black,
-              ),
-              onPressed: () {
-             
-              },
-            ),
+            centerTitle: true,
             elevation: 0.0,
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.teal,
             title: const Text(
               'Football Players',
+              style: TextStyle(color: Colors.white),
             ),
           ),
           body: ListView(
@@ -39,6 +32,10 @@ class PlayerScreen extends StatelessWidget {
                 child: Column(
                   children: const [
                     HorizontalBar(),
+                     SizedBox(
+                      height: 10.0,
+                    ),
+                    SearchItem(),
                     SizedBox(
                       height: 20.0,
                     ),
@@ -75,9 +72,8 @@ class PlayerSList extends StatelessWidget {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        }
-        else if(state is PlayersErrorState){
-           return const Center(
+        } else if (state is PlayersErrorState) {
+          return const Center(
               child: Text(
             "Something Went Wrong !!",
             textAlign: TextAlign.center,
